@@ -68,6 +68,7 @@ int Stack::Pop()
 
 		delete tail;
 		tail = iter;
+		tail->next = nullptr;
 
 		size--;
 
@@ -75,7 +76,7 @@ int Stack::Pop()
 	}
 	else
 	{
-		return 0;
+		return -1;
 	}	
 }
 
