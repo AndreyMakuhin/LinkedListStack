@@ -2,31 +2,44 @@
 
 Stack::Stack()
 {
-	head = new Item();
-	tail = head;
-	tail->next = nullptr;
+	head = nullptr;
+	tail = head;	
 }
 
 Stack::~Stack()
 {
-	Item* iter = head;	
-	Item* tmp = iter;
-	while (iter->next)
+	if (size > 0)
 	{
-		iter = iter->next;
-		delete tmp;
-		tmp = iter;
-	}
-	
-	delete iter;
+		Item* iter = head;
+		Item* tmp = iter;
+		while (iter->next)
+		{
+			iter = iter->next;
+			delete tmp;
+			tmp = iter;
+		}
+
+		delete iter;
+	}	
 }
 
 void Stack::Push(int val)
 {
-	tail->next = new Item(val);
-	tail = tail->next;
-	tail->next = nullptr;
-	size++;
+	if (size > 0)
+	{
+		tail->next = new Item(val);
+		tail = tail->next;
+		tail->next = nullptr;
+		size++;
+	}
+	else
+	{
+		head = new Item(val);
+		tail = head;
+		tail->next = nullptr;
+		size++;
+	}
+	
 }
 
 int Stack::Pop()
@@ -49,20 +62,21 @@ int Stack::Pop()
 			delete tail;
 			tail = head;
 			tail->next = nullptr;
+			size--;
+			return val;
 		}
 
 		delete tail;
 		tail = iter;
+
+		size--;
 
 		return val;
 	}
 	else
 	{
 		return 0;
-	}
-
-	
-	
+	}	
 }
 
 int Stack::Size() const
