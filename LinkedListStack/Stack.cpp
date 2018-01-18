@@ -7,6 +7,11 @@ Stack::Stack()
 }
 
 Stack::Stack(const Stack & source)
+{
+	*this = source;
+}
+	/*
+	//первоначальная версия, но дублируется код
 	:
 	size(source.size)
 {
@@ -24,7 +29,7 @@ Stack::Stack(const Stack & source)
 	iter->next = nullptr;
 
 	tail = iter;
-}
+}*/
 
 Stack & Stack::operator=(const Stack & source)	
 	
