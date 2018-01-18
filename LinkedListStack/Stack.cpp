@@ -26,6 +26,42 @@ Stack::Stack(const Stack & source)
 	tail = iter;
 }
 
+Stack & Stack::operator=(const Stack & source)	
+	
+{
+	size = source.size;
+	
+	if (head && size > 0)
+	{
+		Item* iter = head;
+		Item* tmp = iter;
+		while (iter->next)
+		{
+			iter = iter->next;
+			delete tmp;
+			tmp = iter;
+		}
+		delete iter;
+	}
+
+	head = new Item(source.head->Value());
+	Item* iter = head;
+	Item* sourceIter = source.head;
+
+	while (sourceIter->next)
+	{
+		iter->next = new Item(sourceIter->next->Value());
+		iter = iter->next;
+		sourceIter = sourceIter->next;
+	}
+
+	iter->next = nullptr;
+
+	tail = iter;
+
+	return *this;
+}
+
 
 
 Stack::~Stack()
