@@ -6,6 +6,28 @@ Stack::Stack()
 	tail = head;	
 }
 
+Stack::Stack(const Stack & source)
+	:
+	size(source.size)
+{
+	head = new Item(source.head->Value());	
+	Item* iter = head;
+	Item* sourceIter = source.head;
+
+	while(sourceIter->next)
+	{
+		iter->next = new Item(sourceIter->next->Value());
+		iter = iter->next;
+		sourceIter = sourceIter->next;
+	}
+
+	iter->next = nullptr;
+
+	tail = iter;
+}
+
+
+
 Stack::~Stack()
 {
 	if (size > 0)
